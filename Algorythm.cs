@@ -2,13 +2,15 @@ public interface Algorythm {
     private ArrayList<Curve> Curves{get; private set;};
     private ArrayList<Parameter> ParametersList{get; private set;}
 
-    public Algorythm(Dataset dataset, ArrayList<Parameter> parametersList) {
-        Dataset = dataset;
+    public Algorythm(ArrayList<Curve> curves, ArrayList<Parameter> parametersList) {
+        Curves = curves;
         ParametersList = parametersList;
     }
 
-    public Data process(Dataset dataset, ArrayList<Parameter> parametersList) {
-        //algorythm
-        return new Data();
+    public ArrayList<Data> process(ArrayList<Curve> curves, ArrayList<Parameter> parametersList) {
+        
+        //some complex data processing
+
+        return new ArrayList<Data>;
     }
 }

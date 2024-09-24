@@ -8,7 +8,12 @@ public class Curve {
     }
 
     public bool hasNull() {
-        //foreach ()
+        foreach (double v in Value) {
+            if v == null {
+                return true;
+            }
+        }
+        
         return false;
     }
 }
