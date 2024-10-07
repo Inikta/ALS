@@ -44,20 +44,13 @@ public class Dataset : ICloneable {
 
     public override bool Equals(object obj)
     {
-        //
-        // See the full list of guidelines at
-        //   http://go.microsoft.com/fwlink/?LinkID=85237
-        // and also the guidance for operator== at
-        //   http://go.microsoft.com/fwlink/?LinkId=85238
-        //
-        
         if (obj == null || GetType() != obj.GetType())
         {
             return false;
         }
         
-        // TODO: write your implementation of Equals() here
-        throw new System.NotImplementedException();
-        return base.Equals (obj);
+        if (obj is Dataset dataset) return Name == dataset.Name;
+        
+        return false;
     }
 }

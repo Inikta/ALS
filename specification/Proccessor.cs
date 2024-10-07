@@ -1,8 +1,3 @@
-public class CurveNameId {
-    public string curvename{get; private set;};
-    public string datasetname{get; private set;};
-}
-
 public class Processor {
     public Dictionary<string, Dataset> InputDatasets{get; private set;};
     public Dictionary<string, Dataset> OutputDatasets{get; private set;};
@@ -37,4 +32,19 @@ public class Processor {
     }
 
     //сделать алгоритм дублирования для изменений кривой, чтобы копировались только изменения.
+    public Dictionary<string, Dataset> copyChanges () {
+        var datasetsCopy = InputDatasets.Clone()
+        
+        foreach (var dataset in datasetsCopy) {
+            foreach (var curve in dataset) {
+                for (int i = 0; i < curve.Value.Length) {
+                    if (curve.Value[i] != OutputDatasets[dataset.Name][curve.Name].Value[i]) {
+                        curve.Value[i] = OutputDatasets[dataset.Name][curve.Name].Value[i];
+                    }
+                }      
+            }
+        }
+        
+        return datasetsCopy;
+    }
 }
