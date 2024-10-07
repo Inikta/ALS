@@ -1,8 +1,11 @@
 public class Parameter {
-    private string Name{get; private set;};
-    private string Value{get; private set;};
+    public string Name{get; private set;};
+    public string Value{get; private set;};
+    public string Unit{get; private set;};
+    public string Description{get; private set;};
+    public double? Number{get; private set;};
 
-    public Parameter(string name, string value) {
+    public Parameter(string name, string value, string unit = "", string description = "") {
         Name = name;
         Value = value;
     }

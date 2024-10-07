@@ -1,6 +1,7 @@
-public class Dataset {
-    private Dictionary<string, Curve> CurvesByName = {get; private set;}
+public class Dataset : ICloneable {
 
+    public string Name{get; private set;}
+    private Dictionary<string, Curve> CurvesByName{get; private set;}
     public Dataset(Dictionary<string, Curve> curvesByName) {
         CurvesByName = curvesList;
     }
@@ -37,5 +38,26 @@ public class Dataset {
         get{
             return CurvesByName.Count;
         }
+    }
+
+    public object Clone() {return new Dataset(CurvesByName);}
+
+    public override bool Equals(object obj)
+    {
+        //
+        // See the full list of guidelines at
+        //   http://go.microsoft.com/fwlink/?LinkID=85237
+        // and also the guidance for operator== at
+        //   http://go.microsoft.com/fwlink/?LinkId=85238
+        //
+        
+        if (obj == null || GetType() != obj.GetType())
+        {
+            return false;
+        }
+        
+        // TODO: write your implementation of Equals() here
+        throw new System.NotImplementedException();
+        return base.Equals (obj);
     }
 }
