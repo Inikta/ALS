@@ -7,6 +7,10 @@
       "RelativeMoniker": "D:0:0:{C4534EE7-E7F0-4DB4-B5D4-969184D50F00}|Solution.csproj|solutionrelative:doubler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{C4534EE7-E7F0-4DB4-B5D4-969184D50F00}|Solution.csproj|c:\\users\\user\\programming\\vkr\\specification\\solution\\multiplier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4534EE7-E7F0-4DB4-B5D4-969184D50F00}|Solution.csproj|solutionrelative:multiplier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{C4534EE7-E7F0-4DB4-B5D4-969184D50F00}|Solution.csproj|c:\\users\\user\\programming\\vkr\\specification\\solution\\proccessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{C4534EE7-E7F0-4DB4-B5D4-969184D50F00}|Solution.csproj|solutionrelative:proccessor.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
@@ -34,11 +38,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 3,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 1,
+              "Title": "Multiplier.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\Multiplier.cs",
+              "RelativeDocumentMoniker": "Multiplier.cs",
+              "ToolTip": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\Multiplier.cs",
+              "RelativeToolTip": "Multiplier.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACoAAABMAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:03:04.567Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
               "Title": "Curve.cs",
               "DocumentMoniker": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\Curve.cs",
               "RelativeDocumentMoniker": "Curve.cs",
@@ -50,7 +67,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 5,
               "Title": "Dataset.cs",
               "DocumentMoniker": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\Dataset.cs",
               "RelativeDocumentMoniker": "Dataset.cs",
@@ -68,14 +85,14 @@
               "RelativeDocumentMoniker": "Doubler.cs",
               "ToolTip": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\Doubler.cs",
               "RelativeToolTip": "Doubler.cs",
-              "ViewState": "AgIAABIAAAAAAAAAAAAowAwAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAA1wCsAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-10-28T05:18:13.311Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 4,
               "Title": "IAlgorythm.cs",
               "DocumentMoniker": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\IAlgorythm.cs",
               "RelativeDocumentMoniker": "IAlgorythm.cs",
@@ -87,7 +104,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Parameter.cs",
               "DocumentMoniker": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\Parameter.cs",
               "RelativeDocumentMoniker": "Parameter.cs",
@@ -99,7 +116,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 2,
               "Title": "Proccessor.cs",
               "DocumentMoniker": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\Proccessor.cs",
               "RelativeDocumentMoniker": "Proccessor.cs",
@@ -107,7 +124,8 @@
               "RelativeToolTip": "Proccessor.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAADwAAAABAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-10-28T05:16:31.039Z"
+              "WhenOpened": "2024-10-28T05:16:31.039Z",
+              "EditorCaption": ""
             }
           ]
         }
