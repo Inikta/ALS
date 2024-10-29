@@ -1,0 +1,66 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{C4534EE7-E7F0-4DB4-B5D4-969184D50F00}|Solution.csproj|c:\\users\\user\\programming\\vkr\\specification\\solution\\doubler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4534EE7-E7F0-4DB4-B5D4-969184D50F00}|Solution.csproj|solutionrelative:doubler.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{C4534EE7-E7F0-4DB4-B5D4-969184D50F00}|Solution.csproj|c:\\users\\user\\programming\\vkr\\specification\\solution\\multiplier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{C4534EE7-E7F0-4DB4-B5D4-969184D50F00}|Solution.csproj|solutionrelative:multiplier.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 3,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{1fc202d4-d401-403c-9834-5b218574bb67}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "Doubler.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\Doubler.cs",
+              "RelativeDocumentMoniker": "Doubler.cs",
+              "ToolTip": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\Doubler.cs",
+              "RelativeToolTip": "Doubler.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:58:10.82Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "Multiplier.cs",
+              "DocumentMoniker": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\Multiplier.cs",
+              "RelativeDocumentMoniker": "Multiplier.cs",
+              "ToolTip": "C:\\Users\\User\\Programming\\VKR\\Specification\\Solution\\Multiplier.cs",
+              "RelativeToolTip": "Multiplier.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-10-28T15:57:51.068Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
