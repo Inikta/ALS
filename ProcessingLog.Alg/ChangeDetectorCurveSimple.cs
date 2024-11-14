@@ -21,8 +21,6 @@ namespace ProcessingLog.Alg
 
                 return indexRange;
             }
-
-            IList<(int, int)> ilist = new List<(int, int)> ();
             
             bool isStartIdxDefined = false;
             int idxStart = 0;
