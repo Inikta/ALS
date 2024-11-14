@@ -13,9 +13,9 @@ namespace ProcessingLog.Alg
 
         public Curve[] ChangedCurves { get; private set; } = [];
 
-        public void Process(Curve[] inputCurves, IndexRange[] inputChanges,
+        public void Process(Curve[] inputCurves, IndexRange inputChanges,
                                 Parameter[] inputParameters, (string, bool)[] param_chng_status, Curve[] outputCurves,
-                                    IndexRange[] outputChanges)
+                                    IndexRange outputChanges)
         {
             InputCurvesCnt = inputCurves.Length;
             InputParametersCnt = inputParameters.Length;
@@ -25,11 +25,11 @@ namespace ProcessingLog.Alg
 
             int pairCnt = 0;
 
-            foreach (IndexRange pair in inputChanges)
+            foreach ((int start, int end) range in inputChanges.Range)  //namechecking
             {
-                if (pair.Range.start >= 0 && pair.Range.end >= 0)
+                if (range.start >= 0 && range.end >= 0)
                 {
-                    for (int i = pair.Range.start; i <= pair.Range.end; i++)
+                    for (int i = range.start; i <= range.end; i++)
                     {
                         ChangedCurves[pairCnt].Value[i] = inputCurves[pairCnt].Value[i];
                     }

@@ -9,7 +9,7 @@ namespace IProcessingLog
         public double? NumberDouble { get; private set; }
         public int? NumberInt { get; private set; }
 
-        public Parameter(string name, string value, string unit, string description)
+        public Parameter(string name, string value, string unit = "", string description = "")
         {
             Name = name;
             Value = value;

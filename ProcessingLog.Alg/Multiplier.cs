@@ -15,16 +15,16 @@ namespace ProcessingLog.Alg
         public Curve[] ChangedCurves { get; private set; } = [];
         private MultiplierFucntion FuncDelegate { get; } = del;
 
-        public void Process(Curve[] inputCurves, IndexRange[] inputChanges, 
+        public void Process(Curve[] inputCurves, IndexRange inputChanges, 
                             Parameter[] inputParameters, (string, bool)[] param_chng_status, Curve[] outputCurves,
-                            IndexRange[] outputChanges)
+                            IndexRange outputChanges)
         {
             ChangedCurves = (Curve[])outputCurves.Clone();
             int rangeIdx = 0;
 
             foreach (Curve curve in inputCurves)
             {
-                for (int i = inputChanges[rangeIdx].Range.start; i < inputChanges[rangeIdx].Range.end; i++)
+                for (int i = inputChanges.Range[rangeIdx].start; i < inputChanges.Range[rangeIdx].end; i++)
                 {
                     ChangedCurves[rangeIdx].Value[i] = FuncDelegate(curve.Value[i]);
                 }

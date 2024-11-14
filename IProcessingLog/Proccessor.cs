@@ -19,7 +19,7 @@ namespace IProcessingLog
 
         private Dictionary<string, Parameter> previousParameters = new Dictionary<string, Parameter>();
 
-
+        // namesorting of algos & index ranges
         public Processor(ProcessScheme processScheme, IList<Dataset> inputDatasets, IList<Parameter> inputParameters, 
                             IChangeDetectorCurve changeDetectorCurve, IChangeDetectorParameter changeDetectorParameter)
         {
@@ -79,7 +79,7 @@ namespace IProcessingLog
                 foreach (var dataset in InputDatasets)
                 {
                     Curve[] outCurves = dataset.CurvesByName.Values.ToArray();
-                    algo.Process(dataset.CurvesByName.Values.ToArray(), range, InputParameters.Values.ToArray(), ParameterChangeStatus, outCurves, CurrentIndexRanges);
+                    algo.Process(dataset.CurvesByName.Values.ToArray(), range[cnt], InputParameters.Values.ToArray(), ParameterChangeStatus, outCurves, CurrentIndexRanges[cnt]);
                     CurrentDatasets[cnt] = new Dataset(algo.GetCurves(), dataset.Name);
                     cnt++;
                 }

@@ -18,8 +18,8 @@ namespace ProcessingLog.Test
             var c1 = new Curve("C1", data);
             var curveArr = new Curve[] { c1 };
 
-            IndexRange[] inputChanges = [new IndexRange()]; 
-            inputChanges[0].Range = (2, 5);
+            IndexRange inputChanges = new IndexRange();
+            inputChanges.Range.Add((2, 5));
 
             var ds_input = new Dataset(new Curve[] { c1 });
             var dss = new Dataset[] { ds_input };
@@ -32,7 +32,7 @@ namespace ProcessingLog.Test
             double[] expectedData = [0, 0, 3, 4, 5, 6, 0, 0, 0, 0];
 
             Doubler doubler = new();
-            doubler.Process(curveArr, inputChanges, parameters, new (string, bool)[parameters.Length], outCurveArr, new IndexRange[1]); //также сравнить interv_idx (класс)
+            doubler.Process(curveArr, inputChanges, parameters, new (string, bool)[parameters.Length], outCurveArr, new IndexRange()); //также сравнить interv_idx (класс)
             var ans = doubler.ChangedCurves;
 
             CollectionAssert.AreEqual(ans[0].Value, expectedData); //коллекции и интервалы сравнить
@@ -49,10 +49,10 @@ namespace ProcessingLog.Test
             var c3 = new Curve("C3", data1);
 
             var curveArr = new Curve[] { c1, c2, c3 };
-            IndexRange[] inputChanges = { new(), new(), new() };
-            inputChanges[0].Range = (2, 5);
-            inputChanges[1].Range = (0, -1);
-            inputChanges[2].Range = (3, 9);
+            IndexRange inputChanges = new IndexRange();
+            inputChanges.Range.Add((2, 5));
+            inputChanges.Range.Add((0, -1));
+            inputChanges.Range.Add((3, 9));
 
             var ds_input = new Dataset(new Curve[] { c1 });
             var dss = new Dataset[] { ds_input };
@@ -71,7 +71,7 @@ namespace ProcessingLog.Test
                                                         [0, 0, 0, 0, 5, 6, double.NaN, 8, 9, double.NaN]];
 
             Doubler doubler = new();
-            doubler.Process(curveArr, inputChanges, parameters, new (string, bool)[parameters.Length], outCurveArr, new IndexRange[3]);
+            doubler.Process(curveArr, inputChanges, parameters, new (string, bool)[parameters.Length], outCurveArr, new IndexRange());
             var ans = doubler.ChangedCurves;
 
             CollectionAssert.AreEqual(ans[0].Value, expectedData[0]);
