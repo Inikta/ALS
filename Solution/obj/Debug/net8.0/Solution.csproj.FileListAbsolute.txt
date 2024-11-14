@@ -1,5 +1,0 @@
-C:\Users\User\Programming\VKR\Specification\Solution\obj\Debug\net8.0\Solution.GeneratedMSBuildEditorConfig.editorconfig
-C:\Users\User\Programming\VKR\Specification\Solution\obj\Debug\net8.0\Solution.AssemblyInfoInputs.cache
-C:\Users\User\Programming\VKR\Specification\Solution\obj\Debug\net8.0\Solution.AssemblyInfo.cs
-C:\Users\User\Programming\VKR\Specification\Solution\obj\Debug\net8.0\Solution.csproj.CoreCompileInputs.cache
-C:\Users\User\Programming\VKR\Specification\Solution\obj\Debug\net8.0\Solution.sourcelink.json
