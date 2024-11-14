@@ -1,4 +1,5 @@
-﻿using ProcessingLog;
+﻿using IProcessingLog;
+using ProcessingLog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,35 +8,34 @@ using System.Threading.Tasks;
 
 namespace ProcessingLog.Alg
 {
-    public delegate double MultiplierFucntion(double? x);
+    public delegate double MultiplierFucntion(double x);
 
-
-    class Multiplier : IAlgorythm
+    class Multiplier(MultiplierFucntion del) : IAlgorythm
     {
-        public Curve[] ChangedCurves { get; private set; }
-        private MultiplierFucntion funcDelegate;
+        public Curve[] ChangedCurves { get; private set; } = [];
+        private MultiplierFucntion FuncDelegate { get; } = del;
 
-        public Multiplier(MultiplierFucntion del)
-        {
-            funcDelegate = del;
-        }
-
-        public void Process(Curve[] inputCurves, (int idx_begin, int idx_end)[] changed_idx_inputCurves, 
-                            Parameter[] inputParameters, (string, bool)[] param_chng_status, Curve[] outputCurves, 
-                            (int idx_begin, int idx_end)[] changed_idx_outputCurves)
+        public void Process(Curve[] inputCurves, IndexRange[] inputChanges, 
+                            Parameter[] inputParameters, (string, bool)[] param_chng_status, Curve[] outputCurves,
+                            IndexRange[] outputChanges)
         {
             ChangedCurves = (Curve[])outputCurves.Clone();
-            int idx_pair_cnt = 0;
+            int rangeIdx = 0;
 
             foreach (Curve curve in inputCurves)
             {
-                for (int i = changed_idx_inputCurves[idx_pair_cnt].idx_begin; i < changed_idx_inputCurves[idx_pair_cnt].idx_end; i++)
+                for (int i = inputChanges[rangeIdx].Range.start; i < inputChanges[rangeIdx].Range.end; i++)
                 {
-                    ChangedCurves[idx_pair_cnt].Value[i] = funcDelegate(curve.Value[i]);
+                    ChangedCurves[rangeIdx].Value[i] = FuncDelegate(curve.Value[i]);
                 }
 
-                idx_pair_cnt++;
+                rangeIdx++;
             }
+        }
+
+        public Curve[] GetCurves()
+        {
+            return ChangedCurves;
         }
 
         public int CountInputCurves => throw new NotImplementedException();

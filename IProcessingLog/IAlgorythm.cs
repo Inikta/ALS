@@ -1,13 +1,13 @@
-namespace ProcessingLog
+namespace IProcessingLog
 {
-    using interv_idx = (int idx_begin, int idx_end);
     public interface IAlgorythm
     {
-        void Process(Curve[] inputCurves, interv_idx[] changed_idx_inputCurves,
-                        Parameter[] inputParameters, (string, bool)[] param_chng_status, Curve[] outputCurves,
-                            interv_idx[] changed_idx_outputCurves);
+        void Process(Curve[] inputCurves, IndexRange[] inputChanges,
+                        Parameter[] inputParameters, (string, bool)[] parameterChangeStatus, Curve[] outputCurves,
+                            IndexRange[] outputChanges);
         int CountInputCurves { get; }
         int CountInputParameters { get; }
         int CountOutputCurves { get; }
+        Curve[] GetCurves();
     }
 }

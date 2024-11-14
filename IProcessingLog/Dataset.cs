@@ -1,24 +1,29 @@
-namespace ProcessingLog
+using System.Linq;
+
+namespace IProcessingLog
 {
     public class Dataset : ICloneable
     {
 
         public string Name { get; private set; }
-        private Dictionary<string, Curve> CurvesByName { get; }
-        public Dataset(Dictionary<string, Curve> curvesByName)
+        public Dictionary<string, Curve> CurvesByName { get; private set; }
+
+        public Dataset(Curve[] curvesByName, string name = "")
+        {
+            CurvesByName = curvesByName.ToDictionary(c => c.Name, c => c);
+            Name = name;
+        }
+        public Dataset(Dictionary<string, Curve> curvesByName, string name = "")
         {
             CurvesByName = curvesByName;
-        }
-        public Dataset(Curve[] curvesByName)
-        {
-            //CurvesByName = curvesByName;
+            Name = name;
         }
 
-        public Curve getByName(string name = "")
+        public Curve GetByName(string name = "")
         {
-            if (CurvesByName.ContainsKey(name))
+            if (CurvesByName.TryGetValue(name, out Curve? value))
             {
-                return CurvesByName[name];
+                return value;
             }
 
             return null;
@@ -38,15 +43,6 @@ namespace ProcessingLog
                 }
             }
         }
-
-        /*public Curve this[int i]{
-            get{
-                return null;
-            }
-            set{
-                return CurvesByName.Count = i;
-            }
-        }*/
 
         public int Count
         {

@@ -1,9 +1,9 @@
+using IProcessingLog;
 using System.Linq;
 
 namespace ProcessingLog.Alg
 {
 
-    using interv_idx = (int idx_begin, int idx_end);
     public class Doubler : IAlgorythm
     {
 
@@ -11,25 +11,25 @@ namespace ProcessingLog.Alg
         private int InputParametersCnt = 0;
         private int OutputCurvesCnt = 0;
 
-        public Curve[] ChangedCurves { get; private set; }
+        public Curve[] ChangedCurves { get; private set; } = [];
 
-        public void Process(Curve[] inputCurves, interv_idx[] changed_idx_input,
+        public void Process(Curve[] inputCurves, IndexRange[] inputChanges,
                                 Parameter[] inputParameters, (string, bool)[] param_chng_status, Curve[] outputCurves,
-                                    interv_idx[] changed_idx_output)
+                                    IndexRange[] outputChanges)
         {
             InputCurvesCnt = inputCurves.Length;
             InputParametersCnt = inputParameters.Length;
             OutputCurvesCnt = outputCurves.Length;
 
-            ChangedCurves = (Curve[])outputCurves.Clone();
+            ChangedCurves = outputCurves;
 
             int pairCnt = 0;
 
-            foreach (interv_idx pair in changed_idx_input)
+            foreach (IndexRange pair in inputChanges)
             {
-                if (pair.idx_begin >= 0 && pair.idx_end >= 0)
+                if (pair.Range.start >= 0 && pair.Range.end >= 0)
                 {
-                    for (int i = pair.idx_begin; i < pair.idx_end; i++)
+                    for (int i = pair.Range.start; i <= pair.Range.end; i++)
                     {
                         ChangedCurves[pairCnt].Value[i] = inputCurves[pairCnt].Value[i];
                     }
@@ -45,6 +45,10 @@ namespace ProcessingLog.Alg
                             select inputCurves[pairCnt].Value;*/
         }
 
+        public Curve[] GetCurves()
+        {
+            return ChangedCurves;
+        }
 
         int IAlgorythm.CountInputCurves
         {

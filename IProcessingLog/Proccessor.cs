@@ -1,59 +1,87 @@
-namespace ProcessingLog
+namespace IProcessingLog
 {
-    using interv_idx = (int idx_begin, int idx_end);
+
     public class Processor
     {
-        public Dictionary<string, Dataset> CurrentDatasets { get; private set; }
-        public Dictionary<string, Dataset> InputDatasets { get; private set; }
-        public Dictionary<string, Dataset> OutputDatasets { get; private set; }
+        public IList<Dataset> CurrentDatasets { get; private set; }
+        public IList<Dataset> InputDatasets { get; private set; }
+        public IList<Dataset> OutputDatasets { get; private set; }
         public Dictionary<string, Parameter> InputParameters { get; private set; }
+        public (string, bool)[] ParameterChangeStatus { get; private set; }
+        public IndexRange[] CurrentIndexRanges { get; private set; } = [];
+        public ProcessScheme ProcessScheme { get; set; }
 
-        public IEnumerable<(string[] inputCurves, string[] inputParameters, string[] outParameters, IAlgorythm algorythm)> ProcessScheme { get; private set; }
+        private IChangeDetectorCurve changeDetectorCurve;
 
-        public Processor(IList<Dataset> inputDatasets, IList<Parameter> inputParameters)
+        private IChangeDetectorParameter changeDetectorParameter1;
+
+        private IList<Dataset> previousInputDatasets = new List<Dataset>();
+
+        private Dictionary<string, Parameter> previousParameters = new Dictionary<string, Parameter>();
+
+
+        public Processor(ProcessScheme processScheme, IList<Dataset> inputDatasets, IList<Parameter> inputParameters, 
+                            IChangeDetectorCurve changeDetectorCurve, IChangeDetectorParameter changeDetectorParameter)
         {
-            InputDatasets = new Dictionary<string, Dataset>();
-            CurrentDatasets = new Dictionary<string, Dataset>();
+            ProcessScheme = processScheme;
 
-            DatasetsFiller(InputDatasets, inputDatasets);
-            DatasetsFiller(CurrentDatasets, inputDatasets);
+            InputDatasets = [];
+            CurrentDatasets = [];
+            OutputDatasets = [];
 
-            InputParameters = new Dictionary<string, Parameter>();
+            InputDatasets = inputDatasets;
+            CurrentDatasets = inputDatasets;
+
+            InputParameters = [];
 
             foreach (var currentParameter in inputParameters)
             {
-                if (!InputParameters.ContainsKey(currentParameter.Name))
-                {
-                    InputParameters.Add(currentParameter.Name, currentParameter);
-                }
-                else
+                if (!InputParameters.TryAdd(currentParameter.Name, currentParameter))
                 {
                     continue;
                 }
             }
+
+            ParameterChangeStatus = new (string, bool)[InputParameters.Count];
+            for (int i = 0; i < ParameterChangeStatus.Length; i++) { ParameterChangeStatus[i] = (InputParameters.Keys.ToArray()[i], false); }
+
+            this.changeDetectorCurve = changeDetectorCurve;
+            changeDetectorParameter1 = changeDetectorParameter;
         }
 
-        public void process()
+        public void Process()
         {
-            //updates datasets
-        }
-
-        /*public interv_idx ChangeDetector()
-        {
-            interv_idx intervals
-        }*/
-
-        private void DatasetsFiller(Dictionary<string, Dataset> current, IList<Dataset> input)
-        {
-            foreach (Dataset currentDataset in input)
+            for (int i = 0; i < InputDatasets.Count; i++)
             {
-                if (!InputDatasets.ContainsKey(currentDataset.Name))
+                var inputDataset = InputDatasets[i];
+                var previousDataset = previousInputDatasets[i];
+
+                var inputCurvesKeys = InputDatasets[i].CurvesByName.Keys;
+                var inputCurvesValues = InputDatasets[i].CurvesByName.Values;
+
+                foreach (var key in inputCurvesKeys)
                 {
-                    current.Add(currentDataset.Name, currentDataset);
+                    if (previousDataset.CurvesByName.ContainsKey(key))
+                    {
+                        var range = changeDetectorCurve.DetectChanges(previousDataset.CurvesByName[key], inputDataset.CurvesByName[key]);
+                        CurrentIndexRanges[i] = range;
+                    }
                 }
-                else
+            }
+
+            while (ProcessScheme.Sequence.Count > 0)
+            {
+                IAlgorythm algo = ProcessScheme.Sequence.Dequeue();
+
+                var range = CurrentIndexRanges;
+                int cnt = 0;
+
+                foreach (var dataset in InputDatasets)
                 {
-                    continue;
+                    Curve[] outCurves = dataset.CurvesByName.Values.ToArray();
+                    algo.Process(dataset.CurvesByName.Values.ToArray(), range, InputParameters.Values.ToArray(), ParameterChangeStatus, outCurves, CurrentIndexRanges);
+                    CurrentDatasets[cnt] = new Dataset(algo.GetCurves(), dataset.Name);
+                    cnt++;
                 }
             }
         }

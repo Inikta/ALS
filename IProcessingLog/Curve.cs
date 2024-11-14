@@ -1,30 +1,24 @@
-namespace ProcessingLog { 
+namespace IProcessingLog
+{
 
-public class Curve {
+    public class Curve(string name, double[] value)
+    {
 
-    public string Name{get; private set;}
-    public double?[] Value{get; private set;}
+        public string Name { get; private set; } = name;
+        public double[] Value { get; private set; } = value;
 
-    public Curve(string name, double?[] value) {
-        Name = name;
-        Value = value;
-    }
-
-        public Curve(string name, double[] value)
+        public bool HasNull()
         {
-            Name = name;
-            //Value = value;
-        }
-
-        public bool hasNull() {
-        foreach (double? v in Value) {
-            if (v == null) {
-                return true;
+            foreach (double v in Value)
+            {
+                if (double.IsNaN(v))
+                {
+                    return true;
+                }
             }
+
+            return false;
         }
-        
-        return false;
     }
-}
 
 }
