@@ -10,10 +10,10 @@ namespace ProcessingLog.Alg
 {
     public delegate double MultiplierFucntion(double x);
 
-    public class Multiplier(MultiplierFucntion del) : IAlgorythm
+    public class Multiplier(MultiplierFucntion function) : IAlgorythm
     {
         public Curve[] ChangedCurves { get; private set; } = [];
-        private MultiplierFucntion FuncDelegate { get; } = del;
+        private MultiplierFucntion FuncDelegate { get; } = function;
 
         public void Process(Curve[] inputCurves, IndexRange inputChanges, 
                             Parameter[] inputParameters, (string, bool)[] param_chng_status, Curve[] outputCurves,

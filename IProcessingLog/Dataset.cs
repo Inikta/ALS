@@ -8,6 +8,12 @@ namespace IProcessingLog
         public string Name { get; private set; }
         public Dictionary<string, Curve> CurvesByName { get; private set; }
 
+        public Dataset()
+        {
+            Name = "";
+            CurvesByName = new Dictionary<string, Curve>();
+        }
+
         public Dataset(Curve[] curvesByName, string name = "")
         {
             CurvesByName = curvesByName.ToDictionary(c => c.Name, c => c);
@@ -19,7 +25,7 @@ namespace IProcessingLog
             Name = name;
         }
 
-        public Curve GetByName(string name = "")
+        public Curve? GetByName(string name = "")
         {
             if (CurvesByName.TryGetValue(name, out Curve? value))
             {

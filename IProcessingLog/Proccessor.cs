@@ -1,3 +1,5 @@
+using System;
+
 namespace IProcessingLog
 {
 
@@ -6,9 +8,8 @@ namespace IProcessingLog
         public IList<Dataset> CurrentDatasets { get; private set; }
         public IList<Dataset> InputDatasets { get; private set; }
         public IList<Dataset> OutputDatasets { get; private set; }
-        public Dictionary<string, Parameter> InputParameters { get; private set; }
+        public IList<Parameter> InputParameters { get; private set; }
         public (string, bool)[] ParameterChangeStatus { get; private set; }
-        public IndexRange[] CurrentIndexRanges { get; private set; } = [];
         public ProcessScheme ProcessScheme { get; set; }
 
         private IChangeDetectorCurve changeDetectorCurve;
@@ -31,26 +32,30 @@ namespace IProcessingLog
 
             InputDatasets = inputDatasets;
             CurrentDatasets = inputDatasets;
-
-            InputParameters = [];
-
-            foreach (var currentParameter in inputParameters)
-            {
-                if (!InputParameters.TryAdd(currentParameter.Name, currentParameter))
-                {
-                    continue;
-                }
-            }
+            InputParameters = inputParameters;
 
             ParameterChangeStatus = new (string, bool)[InputParameters.Count];
-            for (int i = 0; i < ParameterChangeStatus.Length; i++) { ParameterChangeStatus[i] = (InputParameters.Keys.ToArray()[i], false); }
+            for (int i = 0; i < ParameterChangeStatus.Length; i++) { ParameterChangeStatus[i] = (InputParameters[i].Name, false); }
 
             this.changeDetectorCurve = changeDetectorCurve;
             changeDetectorParameter1 = changeDetectorParameter;
+
+            if (previousInputDatasets.Count == 0)   // case for empty previous datasets
+            {
+                previousInputDatasets = new List<Dataset>(10);
+            } else if (previousInputDatasets.Count < InputDatasets.Count)
+            {
+                for (int i = 0; i < InputDatasets.Count; i++)
+                {
+                    previousInputDatasets.Add(new Dataset());
+                }
+            }
         }
 
         public void Process()
         {
+            IndexRange[] currentIndexRanges  = [];
+
             for (int i = 0; i < InputDatasets.Count; i++)
             {
                 var inputDataset = InputDatasets[i];
@@ -64,26 +69,32 @@ namespace IProcessingLog
                     if (previousDataset.CurvesByName.ContainsKey(key))
                     {
                         var range = changeDetectorCurve.DetectChanges(previousDataset.CurvesByName[key], inputDataset.CurvesByName[key]);
-                        CurrentIndexRanges[i] = range;
+                        currentIndexRanges[i] = range;
+                    }
+                    else
+                    {
+                        currentIndexRanges[i].Add((0, InputDatasets[i].CurvesByName[key].Value.Length - 1));
                     }
                 }
-            }
+            }   // решить ошибку с повторной обработкой кривой
 
             while (ProcessScheme.Sequence.Count > 0)
             {
                 IAlgorythm algo = ProcessScheme.Sequence.Dequeue();
 
-                var range = CurrentIndexRanges;
+                var range = currentIndexRanges;
                 int cnt = 0;
 
                 foreach (var dataset in InputDatasets)
                 {
                     Curve[] outCurves = dataset.CurvesByName.Values.ToArray();
-                    algo.Process(dataset.CurvesByName.Values.ToArray(), range[cnt], InputParameters.Values.ToArray(), ParameterChangeStatus, outCurves, CurrentIndexRanges[cnt]);
+                    algo.Process(dataset.CurvesByName.Values.ToArray(), range[cnt], InputParameters.ToArray(), ParameterChangeStatus, outCurves, currentIndexRanges[cnt]);
                     CurrentDatasets[cnt] = new Dataset(algo.GetCurves(), dataset.Name);
                     cnt++;
                 }
             }
+
+            previousInputDatasets = CurrentDatasets;
         }
     }
 }

@@ -18,7 +18,18 @@ namespace IProcessingLog
             NumberFromValue();
         }
 
-        public void NumberFromValue() { } // number = double or int(for flags) or null
+        public void NumberFromValue() 
+        {
+            if (int.TryParse(Value, out int i))
+            {
+                NumberInt = int.Parse(Value);
+            }
+
+            if (double.TryParse(Value, out double d))
+            {
+                NumberDouble = double.Parse(Value);
+            } 
+        } // number = double or int(for flags) or null
 
         public object Clone()
         {

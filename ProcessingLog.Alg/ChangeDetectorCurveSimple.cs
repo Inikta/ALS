@@ -11,15 +11,16 @@ namespace ProcessingLog.Alg
     {
         public IndexRange DetectChanges(Curve curve1, Curve curve2)
         {
+            IndexRange indexRange = new IndexRange();
+
             double[] value1 = curve1.Value;
             double[] value2 = curve2.Value;
 
             if (value1.Length != value2.Length)
             {
-                var indexRange = new IndexRange();
-                indexRange.Add((0, value2.Length - 1));
-
-                return indexRange;
+                var range = new IndexRange();
+                range.Add((0, value2.Length - 1));
+                return range;
             }
             
             bool isStartIdxDefined = false;
@@ -36,7 +37,7 @@ namespace ProcessingLog.Alg
 
                 if (value1[i] == value2[i] && isStartIdxDefined == true)
                 {
-                    ilist.Add((idxStart, i - 1));
+                    indexRange.Add((idxStart, i - 1));
                     isStartIdxDefined = false;
                     continue;
                 }
@@ -44,10 +45,10 @@ namespace ProcessingLog.Alg
 
             if (isStartIdxDefined == true)
             {
-                ilist.Add((idxStart, value2.Length - 1));
+                indexRange.Add((idxStart, value2.Length - 1));
             }
 
-            return new IndexRange(ilist);
+            return indexRange;
         }
     }
 }
