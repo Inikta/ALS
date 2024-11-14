@@ -45,8 +45,8 @@ namespace ProcessingLog.Test
             double[] data2 = [0, 12, 4, 4, double.NaN, 6, 7, -5, 93, 110];
             double[] data3 = [double.NaN, 2, double.NaN, double.NaN, 5, 6, double.NaN, 8, 9, double.NaN];
             var c1 = new Curve("C1", data1);
-            var c2 = new Curve("C2", data1);
-            var c3 = new Curve("C3", data1);
+            var c2 = new Curve("C2", data2);
+            var c3 = new Curve("C3", data3);
 
             var curveArr = new Curve[] { c1, c2, c3 };
             IndexRange inputChanges = new IndexRange();
@@ -68,7 +68,7 @@ namespace ProcessingLog.Test
 
             double[][] expectedData = [ [0, 0, 3, 4, 5, 6, 0, 0, 0, 0],
                                                         [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-                                                        [0, 0, 0, 0, 5, 6, double.NaN, 8, 9, double.NaN]];
+                                                        [0, 0, 0, double.NaN, 5, 6, double.NaN, 8, 9, double.NaN]];
 
             Doubler doubler = new();
             doubler.Process(curveArr, inputChanges, parameters, new (string, bool)[parameters.Length], outCurveArr, new IndexRange());
